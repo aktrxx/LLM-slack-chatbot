@@ -4,6 +4,7 @@ import json
 from slack_bolt import App
 from slack_bolt.adapter.socket_mode import SocketModeHandler
 from collections import deque
+from deepseek_LLM_server import *
 
 
 SLACK_BOT_TOKEN = os.getenv("SLACK_BOT_TOKEN")
@@ -19,7 +20,7 @@ def handle_mention(event, say):
     print("Event log")
     channel_id = event["channel"]
     user_query = event["text"]
-    thread_ts = event.get("thread_ts", event["ts"])  # Use thread if available
+    thread_ts = event.get("thread_ts", event["ts"]) 
 
     if channel_id not in message_history:
         message_history[channel_id] = deque(maxlen=5)
@@ -29,14 +30,12 @@ def handle_mention(event, say):
 
     context_messages = list(message_history[channel_id])
     
-
     
-    reply_text = "Hello" #response["choices"][0]["message"]["content"]
+    reply_text = llm_chatbot(user_query)
     
 
-    say(text=reply_text, thread_ts=thread_ts)
+    say(text=reply_text)
     # say(text=reply_text)
-
 
 
 # Start the app

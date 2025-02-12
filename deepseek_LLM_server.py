@@ -1,5 +1,6 @@
 import requests
 import json
+import re
 
 llm_host = 'http://localhost:11434/api/generate'
 
@@ -25,7 +26,13 @@ def llm_chatbot(prompt):
                 chat_response += generated_text
                 print("\rThinking...", end='', flush=True)
         print(chat_response)
+
+        cleaned_text = re.sub(r'<think>.*?</think>\s*', '', chat_response, flags=re.DOTALL)
+
+        return cleaned_text
     else:
         print('Error')
+        return "Error"
 
-llm_chatbot('Hi hello')
+if __name__ == "__main__":
+    llm_chatbot('Hi hello')
