@@ -80,10 +80,6 @@ python slackbot.py
 3. Sends context + user query to DeepSeek LLM.
 4. Receives a response and replies in Slack.
 
-## Example
-
-**User:** `@Ana What is Doctor Droid?`  
-**Ana:** `Doctor Droid is a company based in Bengaluru, India, founded by Siddarth Jain and Dipesh Mittal.`
 
 ---
 
